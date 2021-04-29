@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/home/joe/Documents/sharc_fun/trial/new'
+let g:netrw_dirhist_0='/home/joe/Documents/sharc_fun/trial/output_data'
+let g:netrw_dirhist_9='/home/joe/Programs/sharc/sharc/bin'
+let g:netrw_dirhist_8='/home/joe/Programs/ezSUITE/ezSpectrum_2021/ezspectrum_code/harmonic_pes'
+let g:netrw_dirhist_7='/home/joe/Documents/Python_scripts/plotter/pythonliics/TRAJ1LIIC'
+let g:netrw_dirhist_6='/home/joe/Documents/Python_scripts/plotter/pythonliics'
+let g:netrw_dirhist_5='/home/joe/Documents/Python_scripts/plotter/pythonliics/TRAJ1LIIC'
+let g:netrw_dirhist_4='/home/joe/Documents/Python_scripts/plotter/pythonliics'
+let g:netrw_dirhist_3='/home/joe/Documents/Python_scripts/plotter/pythonliics/TRAJ1LIIC'
+let g:netrw_dirhist_2='/home/joe/Documents/Python_scripts/plotter/pythonliics'
