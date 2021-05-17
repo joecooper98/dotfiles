@@ -16,7 +16,19 @@ Plugin 'VundleVim/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
 
-Plugin 'ycm-core/YouCompleteMe'
+Plugin 'jlanzarotta/bufexplorer'
+
+Plugin 'amix/open_file_under_cursor.vim'
+
+Plugin 'rudrab/vimf90'
+
+Plugin 'python-mode/python-mode'
+
+Plugin 'preservim/nerdtree'
+
+Plugin 'valloric/youcompleteme'
+
+Plugin 'JuliaEditorSupport/julia-vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " require
@@ -28,12 +40,6 @@ set novisualbell        " turn off visual bell
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
-
-" Pathogen load
-filetype off
-
-call pathogen#infect()
-call pathogen#helptags()
 
 filetype plugin indent on
 syntax on
@@ -75,18 +81,22 @@ set t_vb=
 set tm=500
 
 set background=dark
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
-endif
+"if $COLORTERM == 'gnome-terminal' for peaksea
+"#    set t_Co=256
+"#endif
 
-
+set termguicolors
 
 
 " colors and visuals
 
 set number relativenumber
 syntax on
-colorscheme peaksea
+
+
+"colorscheme peaksea 
+colorscheme rigel
+
 
 " tabs
 
@@ -148,7 +158,11 @@ map <leader>nn :NERDTreeToggle<cr>
 map <leader>nf :NERDTreeFind<cr>
 let g:NERDTreeWinPos = "right"
 
+" pymode
 
+ let g:pymode_warnings = 1
+ let g:pymode_options_colorcolumn = 0
+  let g:pymode_quickfix_maxheight = 0
 
 
 
@@ -165,18 +179,3 @@ if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 endif
 
-" YouCompleteMe
- source /home/smokey/.vim/bundle/lsp-examples/vimrc.generated
-
-let g:julia_cmdline = ['julia', '--startup-file=no', '--history-file=no', '-e', '
-\       using LanguageServer;
-\       using Pkg;
-\       import StaticLint;
-\       import SymbolServer;
-\       env_path = dirname(Pkg.Types.Context().env.project_file);
-\       debug = false;
-\
-\       server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict());
-\       server.runlinter = true;
-\       run(server);
-\   ']
