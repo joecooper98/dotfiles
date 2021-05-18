@@ -17,4 +17,12 @@ Then you have to install youcompleteme by
 
 It should then work!
 
+use the following packages
+
+zsh/ohmyzsh/subnixr minimal
+
+kitty using rigellute rigel theme
+
+spotifytui
+
 
