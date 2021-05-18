@@ -138,6 +138,11 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" new windows
+
+map <leader>wv :vsplit<cr>
+map <leader>wh :hsplit<cr>
+
 " tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
@@ -196,7 +201,7 @@ highlight clear ALEErrorSign
 highlight clear ALEWarningSign
 
 let g:ale_linters = {
-\   'python' : ['pylint'],
+\   'python' : ['flake8'],
 \}
 
 let g:ale_fixers = {
