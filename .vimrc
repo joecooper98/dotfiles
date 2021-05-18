@@ -24,11 +24,19 @@ Plugin 'rudrab/vimf90'
 
 Plugin 'python-mode/python-mode'
 
+Plugin 'preservim/nerdcommentor'
+
 Plugin 'preservim/nerdtree'
 
 Plugin 'valloric/youcompleteme'
 
 Plugin 'JuliaEditorSupport/julia-vim'
+
+Plugin 'Rigellute/rigel'
+
+Plugin 'vim-airline/vim-airline'
+
+Plugin 'dense-analysis/ale'
 
 call vundle#end()            " required
 filetype plugin indent on    " require
@@ -121,6 +129,9 @@ map <space> /
 map <C-space> ?
 map <silent> <leader><cr> :noh<cr>
 
+"Terminal
+map <leader>tt :term<cr>
+
 " switch windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -145,8 +156,8 @@ map <leader>ba :1,1000 bd!<cr>
 " bufexplorer
 map <leader>o :BufExplorer<cr>
 
-
-
+let g:rigel_airline = 1
+let g:airline_theme = 'rigel'
 
 " nerdtree
 
@@ -157,6 +168,7 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nf :NERDTreeFind<cr>
 let g:NERDTreeWinPos = "right"
+let NERDTreeShowHidden=1
 
 " pymode
 
@@ -164,7 +176,68 @@ let g:NERDTreeWinPos = "right"
  let g:pymode_options_colorcolumn = 0
   let g:pymode_quickfix_maxheight = 0
 
+" ALE
 
+let g:ale_sign_error = '>'
+let g:ale_sign_warning = '-'
+" Write this in your vimrc file
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+" You can disable this option too
+" if you don't want linters to run on opening a file
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 0
+
+map <leader>af :ALEFix<cr>
+map <leader>al :ALELint<cr>
+map <leader>ag :ALEGoToDefinition<cr>
+
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
+
+let g:ale_linters = {
+\   'python' : ['pylint'],
+\}
+
+let g:ale_fixers = {
+\       '*': ['remove_trailing_lines'],
+\       'python': [
+\       'yapf',
+\       'add_blank_lines_for_python_control_statements',
+\   ],
+\}
+
+let g:airline#extensions#ale#enabled = 1
+
+" nerdcommentor
+"" Create default mappings
+let g:NERDCreateDefaultMappings = 1
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not 
+let g:NERDToggleCheckAllLines = 1
+
+" airline
+
+let g:rigel_airline = 1
+let g:airline_theme = 'rigel'
 
 " Delete trailing white space on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
@@ -178,4 +251,6 @@ endfun
 if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 endif
+
+
 
