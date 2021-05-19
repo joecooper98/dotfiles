@@ -257,5 +257,6 @@ if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 endif
 
-
+autocmd FileType python map <buffer> <F5> :w<CR>:ter python3 "%"<CR>
+autocmd FileType julia map <buffer> <F5> :w<CR>:ter julia "%"<CR>
 
