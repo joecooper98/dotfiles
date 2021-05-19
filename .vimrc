@@ -16,6 +16,12 @@ Plugin 'VundleVim/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
 
+Plugin 'tpope/vim-surround'
+
+Plugin 'airblade/vim-gitgutter'
+
+Plugin 'junegunn/fzf.vim'
+
 Plugin 'jlanzarotta/bufexplorer'
 
 Plugin 'amix/open_file_under_cursor.vim'
@@ -27,6 +33,8 @@ Plugin 'python-mode/python-mode'
 Plugin 'preservim/nerdcommentor'
 
 Plugin 'preservim/nerdtree'
+
+Plugin 'preservim/tagbar'
 
 Plugin 'valloric/youcompleteme'
 
@@ -187,10 +195,10 @@ let g:ale_sign_error = '>'
 let g:ale_sign_warning = '-'
 " Write this in your vimrc file
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_insert_leave = 1
 " You can disable this option too
 " if you don't want linters to run on opening a file
-let g:ale_lint_on_enter = 0
+let g:ale_lint_on_enter = 1
 let g:ale_lint_on_save = 0
 
 map <leader>af :ALEFix<cr>
@@ -201,8 +209,8 @@ highlight clear ALEErrorSign
 highlight clear ALEWarningSign
 
 let g:ale_linters = {
-\   'python' : ['flake8'],
-\}
+                        \ "python" : ["flake8"]
+                        \}
 
 let g:ale_fixers = {
 \       '*': ['remove_trailing_lines'],
@@ -239,10 +247,18 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not 
 let g:NERDToggleCheckAllLines = 1
 
+" tagbar
+
+nmap <F8> :TagbarToggle<CR>
+
 " airline
 
 let g:rigel_airline = 1
 let g:airline_theme = 'rigel'
+
+" fzf 
+
+map ; :Files<CR>
 
 " Delete trailing white space on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
