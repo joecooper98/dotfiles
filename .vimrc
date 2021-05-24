@@ -30,13 +30,13 @@ Plugin 'rudrab/vimf90'
 
 Plugin 'python-mode/python-mode'
 
-Plugin 'preservim/nerdcommentor'
+Plugin 'preservim/nerdcommenter'
 
 Plugin 'preservim/nerdtree'
 
 Plugin 'preservim/tagbar'
 
-Plugin 'valloric/youcompleteme'
+Plugin 'neoclide/coc.nvim'
 
 Plugin 'JuliaEditorSupport/julia-vim'
 
@@ -44,7 +44,6 @@ Plugin 'Rigellute/rigel'
 
 Plugin 'vim-airline/vim-airline'
 
-Plugin 'dense-analysis/ale'
 
 call vundle#end()            " required
 filetype plugin indent on    " require
@@ -60,6 +59,7 @@ filetype off                  " required
 filetype plugin indent on
 syntax on
 
+map <leader>q :q!<cr>
 
 "stuff
 
@@ -89,6 +89,8 @@ set magic
 set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=2
+
+set updatetime=300
 
 " No annoying sound on errors
 set noerrorbells
@@ -185,43 +187,6 @@ let NERDTreeShowHidden=1
 
 " pymode
 
- let g:pymode_warnings = 1
- let g:pymode_options_colorcolumn = 0
-  let g:pymode_quickfix_maxheight = 0
-
-" ALE
-
-let g:ale_sign_error = '>'
-let g:ale_sign_warning = '-'
-" Write this in your vimrc file
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 1
-" You can disable this option too
-" if you don't want linters to run on opening a file
-let g:ale_lint_on_enter = 1
-let g:ale_lint_on_save = 0
-
-map <leader>af :ALEFix<cr>
-map <leader>al :ALELint<cr>
-map <leader>ag :ALEGoToDefinition<cr>
-
-highlight clear ALEErrorSign
-highlight clear ALEWarningSign
-
-let g:ale_linters = {
-                        \ "python" : ["flake8"]
-                        \}
-
-let g:ale_fixers = {
-\       '*': ['remove_trailing_lines'],
-\       'python': [
-\       'yapf',
-\       'add_blank_lines_for_python_control_statements',
-\   ],
-\}
-
-let g:airline#extensions#ale#enabled = 1
-
 " nerdcommentor
 "" Create default mappings
 let g:NERDCreateDefaultMappings = 1
@@ -256,23 +221,58 @@ nmap <F8> :TagbarToggle<CR>
 let g:rigel_airline = 1
 let g:airline_theme = 'rigel'
 
+
+" enable/disable coc integration >
+  let g:airline#extensions#coc#enabled = 1
+" change error symbol: >
+  let airline#extensions#coc#error_symbol = '!:'
+" change warning symbol: >
+  let airline#extensions#coc#warning_symbol = '!!:'
+" change error format: >
+  let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
+" change warning format: >
+  let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
+
+
 " fzf 
+
+source ~/.vim/bundle/lsp-examples/vimrc.generated
 
 map ; :Files<CR>
 
-" Delete trailing white space on save, useful for some filetypes ;)
-fun! CleanExtraSpaces()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    silent! %s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfun
+"coc
+
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+nmap <leader> gd <Plug>(coc-definition)
+nmap <leader> [g <Plug>(coc-diagnostic-prev)
+nmap <leader> ]g <Plug>(coc-diagnostic-next)
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
 
 if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 endif
 
+autocmd FileType python map <buffer> <F6> :w<CR>:verter python3 "%"<CR>
 autocmd FileType python map <buffer> <F5> :w<CR>:ter python3 "%"<CR>
+autocmd FileType julia map <buffer> <F6> :w<CR>:verter julia "%"<CR>
 autocmd FileType julia map <buffer> <F5> :w<CR>:ter julia "%"<CR>
 
