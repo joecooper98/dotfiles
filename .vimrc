@@ -1,6 +1,9 @@
 " vundle 
 set nocompatible              " be iMproved, required
 filetype off                  " required
+set hidden
+
+let g:ale_disable_lsp = 1
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -16,19 +19,19 @@ Plugin 'VundleVim/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
 
+Plugin 'dense-analysis/ALE'
+
 Plugin 'tpope/vim-surround'
 
 Plugin 'airblade/vim-gitgutter'
 
-Plugin 'junegunn/fzf.vim'
+Plugin 'maxbrunsfeld/vim-yankstack'
 
 Plugin 'jlanzarotta/bufexplorer'
 
 Plugin 'amix/open_file_under_cursor.vim'
 
 Plugin 'rudrab/vimf90'
-
-Plugin 'python-mode/python-mode'
 
 Plugin 'preservim/nerdcommenter'
 
@@ -44,11 +47,12 @@ Plugin 'Rigellute/rigel'
 
 Plugin 'vim-airline/vim-airline'
 
+Plugin 'mbbill/undotree'
+
+Plugin 'ctrlpvim/ctrlp.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " require
-
-
 
 set visualbell t_vb=    " turn off error beep/flash
 set novisualbell        " turn off visual bell
@@ -130,6 +134,7 @@ let mapleader = ","
 " (useful for handling the permission-denied error)
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
+set splitright
 
 " save buffer
 nmap <leader>w :w!<cr>
@@ -140,13 +145,18 @@ map <C-space> ?
 map <silent> <leader><cr> :noh<cr>
 
 "Terminal
-map <leader>tt :term<cr>
+map <leader>tt :vert term<cr>
 
 " switch windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+map <M-j> <C-W>j
+map <M-k> <C-W>k
+map <M-h> <C-W>h
+map <M-l> <C-W>l
 
 " new windows
 
@@ -216,6 +226,10 @@ let g:NERDToggleCheckAllLines = 1
 
 nmap <F8> :TagbarToggle<CR>
 
+" undotree
+
+nnoremap <F7> :UndotreeToggle<CR>
+
 " airline
 
 let g:rigel_airline = 1
@@ -225,20 +239,44 @@ let g:airline_theme = 'rigel'
 " enable/disable coc integration >
   let g:airline#extensions#coc#enabled = 1
 " change error symbol: >
-  let airline#extensions#coc#error_symbol = '!:'
+  let airline#extensions#coc#error_symbol = '!!:'
 " change warning symbol: >
-  let airline#extensions#coc#warning_symbol = '!!:'
+  let airline#extensions#coc#warning_symbol = '!:'
 " change error format: >
   let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
 " change warning format: >
   let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
+let g:airline#extensions#tabline#enabled = 1
 
+" Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
 
-" fzf 
+nmap <silent> <leader>db <Plug>(ale_previous_wrap)
+nmap <silent> <leader>df <Plug>(ale_next_wrap)
 
-source ~/.vim/bundle/lsp-examples/vimrc.generated
+" ale
 
-map ; :Files<CR>
+let g:ale_sign_error = '>'
+let g:ale_sign_warning = '-'
+
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
+
+let g:ale_sign_column_always = 1
+
+let g:ale_fixers = {
+                        \ '*' : ['prettier', 'eslint', 'remove_trailing_lines'],
+                        \ 'python' : ['yapf', 'isort', 'autopep8']
+                        \}
+
+let g:ale_linters = {
+                        \ 'python' : ['flake8']
+                        \}
+
+let g:ale_set_highlights = 0
+
+map <F9> :ALEFix <CR>
+map <F10> :ALELint <CR>
 
 "coc
 
@@ -258,21 +296,6 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-nmap <leader> gd <Plug>(coc-definition)
-nmap <leader> [g <Plug>(coc-diagnostic-prev)
-nmap <leader> ]g <Plug>(coc-diagnostic-next)
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-
-if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
-endif
-
-autocmd FileType python map <buffer> <F6> :w<CR>:verter python3 "%"<CR>
-autocmd FileType python map <buffer> <F5> :w<CR>:ter python3 "%"<CR>
-autocmd FileType julia map <buffer> <F6> :w<CR>:verter julia "%"<CR>
-autocmd FileType julia map <buffer> <F5> :w<CR>:ter julia "%"<CR>
+autocmd FileType python map <buffer> <F5> :w<CR>:vert term python3 "%"<CR>
+autocmd FileType julia map <buffer> <F5> :w<CR>:vert term julia "%"<CR>
 
