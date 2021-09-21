@@ -11,9 +11,9 @@ After that, open up vim, and run
 
 :PluginInstall
 
-Then you have to install youcompleteme by 
+Then you have to install COC by
 
-~/.vim/bundle/youcompleteme/install.py
+:CoCinstall
 
 It should then work!
 
