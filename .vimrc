@@ -1,9 +1,8 @@
-" vundle 
+"vundle 
 set nocompatible              " be iMproved, required
 filetype off                  " required
 set hidden
 
-let g:ale_disable_lsp = 1
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -43,13 +42,21 @@ Plugin 'neoclide/coc.nvim'
 
 Plugin 'JuliaEditorSupport/julia-vim'
 
-Plugin 'Rigellute/rigel'
+Plugin 'arcticicestudio/nord-vim'
 
 Plugin 'vim-airline/vim-airline'
+
+Plugin 'vim-airline/vim-airline-themes'
 
 Plugin 'mbbill/undotree'
 
 Plugin 'ctrlpvim/ctrlp.vim'
+
+Plugin 'lervag/vimtex'
+
+Plugin 'sirver/ultisnips'
+
+Plugin 'KeitaNakamura/tex-conceal.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " require
@@ -117,10 +124,8 @@ syntax on
 
 
 "colorscheme peaksea 
-colorscheme rigel
+colorscheme nord
 
-
-" tabs
 
 set tabstop=4
 set expandtab
@@ -182,9 +187,7 @@ map <leader>ba :1,1000 bd!<cr>
 " bufexplorer
 map <leader>o :BufExplorer<cr>
 
-let g:rigel_airline = 1
-let g:airline_theme = 'rigel'
-
+let g:airline_theme='base16_nord'
 " nerdtree
 
 autocmd VimEnter * NERDTree | wincmd p
@@ -233,9 +236,6 @@ nnoremap <F7> :UndotreeToggle<CR>
 
 " airline
 
-let g:rigel_airline = 1
-let g:airline_theme = 'rigel'
-
 
 " enable/disable coc integration >
   let g:airline#extensions#coc#enabled = 1
@@ -256,6 +256,8 @@ nmap <silent> <leader>db <Plug>(ale_previous_wrap)
 nmap <silent> <leader>df <Plug>(ale_next_wrap)
 
 " ale
+
+let g:ale_disable_lsp = 1
 
 let g:ale_sign_error = '>'
 let g:ale_sign_warning = '-'
@@ -299,4 +301,24 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 autocmd FileType python map <buffer> <F5> :w<CR>:vert term python3 "%"<CR>
 autocmd FileType julia map <buffer> <F5> :w<CR>:vert term julia "%"<CR>
+autocmd FileType latex map <buffer> <F5> :w<CR>:vert term latex "%"<CR>
+
+"latex section
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+
+set conceallevel=1
+let g:tex_conceal='abdmg'
+hi Conceal ctermbg=none
+
+nnoremap <leader>s :setlocal spell!<CR>
+set spelllang=en_gb
+inoremap <C-s> <c-g>u<Esc>[s1z=`]a<c-g>u
+
+autocmd FileType latex :call CocDisable()
 
