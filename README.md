@@ -2,11 +2,16 @@
 
 
 git clone this repo, and then run
-
+```
+./install.sh
+```
+or
+```
 cp -rf vimrc/.vim ~/.vim
-
+```
+```
 cp -rf vimrc/.vimrc ~/.vimrc
-
+```
 After that, open up vim, and run 
 
 :PluginInstall
@@ -21,7 +26,7 @@ use the following packages
 
 zsh/ohmyzsh/subnixr minimal
 
-kitty using rigellute rigel theme
+kitty with nord theme
 
 spotifytui
 
