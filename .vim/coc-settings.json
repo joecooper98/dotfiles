@@ -1,6 +1,6 @@
 {
         "languageserver": {
-"python": {
+      "python": {
     "command": "python",
    "args": [
      "-mpyls",
