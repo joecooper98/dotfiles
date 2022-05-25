@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/smokey/.oh-my-zsh"
+export ZSH="/home/joe/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -135,12 +135,17 @@ alias cdsftp='cd ~/Documents/SFTPDUMP'
 alias rezsh='source ~/.zshrc'
 alias lw='ansiweather'
 alias sw='ansiweather -l Edinburgh,UK -u metric -s true -p true -h true -w true'
-alias sourceintel='source /home/smokey/intel/oneapi/setvars.sh intel64'     
+alias sourceintel='source /home/joe/intel/oneapi/setvars.sh intel64'     
 
-autoload -Uz compinit
-compaudit | xargs chown -R "$(whoami)"
-# Completion for kitty
-kitty + complete setup zsh | source /dev/stdin
+#suffix aliases
+
+alias -s {xyz,molden}=jmol
+alias -s {f,f90,py,jl,inp,input,json}=vim
+
+#autoload -Uz compinit
+#compaudit | xargs chown -R "$(whoami)"
+## Completion for kitty
+#kitty + complete setup zsh | source /dev/stdin
 
 source ${ZSH_CUSTOM}/themes/minimal/minimal.zsh  
 
