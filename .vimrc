@@ -54,9 +54,9 @@ Plugin 'ctrlpvim/ctrlp.vim'
 
 Plugin 'lervag/vimtex'
 
-Plugin 'sirver/ultisnips'
-
-Plugin 'KeitaNakamura/tex-conceal.vim'
+"Plugin 'sirver/ultisnips'
+"
+"Plugin 'KeitaNakamura/tex-conceal.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " require
@@ -307,27 +307,28 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 autocmd FileType python map <buffer> <F5> :w<CR>:vert term python3 "%"<CR>
 autocmd FileType julia map <buffer> <F5> :w<CR>:vert term julia "%"<CR>
-autocmd FileType fortran map <buffer> <F5> :w<CR>:vert term ++shell gfortran % -o %<.o && ./%<.o <CR>
+autocmd FileType fortran map <buffer> <F5> :w<CR>:vert term ++shell gfortran -O3 -lblas -llapack % -o %<.o && ./%<.o <CR>
+autocmd FileType fortran map <buffer> <F6> :w<CR>:vert term ++shell ifort -O3 -qmkl % -o %<.o && ./%<.o <CR>
 autocmd FileType shell map <buffer> <F5> :w<CR>:vert term ++shell bash % <CR>
 autocmd FileType matlab map <buffer> <F5> :w<CR>:vert term ++shell matlab -batch % <CR>
 autocmd FileType latex map <buffer> <F5> :w<CR>:vert term latex "%"<CR>
 
 "latex section
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-
-let g:tex_flavor='latex'
-let g:vimtex_view_method='zathura'
-let g:vimtex_quickfix_mode=0
-
-set conceallevel=1
-let g:tex_conceal='abdmg'
-hi Conceal ctermbg=none
-
-nnoremap <leader>s :setlocal spell!<CR>
-set spelllang=en_gb
-inoremap <C-s> <c-g>u<Esc>[s1z=`]a<c-g>u
-
-autocmd FileType latex :call CocDisable()
-
+"let g:UltiSnipsExpandTrigger = '<tab>'
+"let g:UltiSnipsJumpForwardTrigger = '<tab>'
+"let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+"
+"let g:tex_flavor='latex'
+"let g:vimtex_view_method='zathura'
+"let g:vimtex_quickfix_mode=0
+"
+"set conceallevel=1
+"let g:tex_conceal='abdmg'
+"hi Conceal ctermbg=none
+"
+"nnoremap <leader>s :setlocal spell!<CR>
+"set spelllang=en_gb
+"inoremap <C-s> <c-g>u<Esc>[s1z=`]a<c-g>u
+"
+"autocmd FileType latex :call CocDisable()
+"
