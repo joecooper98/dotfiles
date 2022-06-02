@@ -144,7 +144,7 @@ alias -s {f,f90,py,jl,inp,input,json}=vim
 
 #autoload -Uz compinit
 #compaudit | xargs chown -R "$(whoami)"
-## Completion for kitty
+# Completion for kitty
 #kitty + complete setup zsh | source /dev/stdin
 
 source ${ZSH_CUSTOM}/themes/minimal/minimal.zsh  
@@ -154,6 +154,10 @@ source ${ZSH_CUSTOM}/themes/minimal/minimal.zsh
 
 export GOPATH=~/GO
 PATH+=$GOPATH:$PATH
+
+export PATH=~/bin/:$PATH
+
+source ~/.zsh_alias.sh
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
