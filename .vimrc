@@ -314,6 +314,13 @@ autocmd FileType shell map <buffer> <F5> :w<CR>:vert term ++shell bash % <CR>
 autocmd FileType matlab map <buffer> <F5> :w<CR>:vert term ++shell matlab -batch % <CR>
 autocmd FileType latex map <buffer> <F5> :w<CR>:vert term latex "%"<CR>
 
+"Use persistent history.
+if !isdirectory("/tmp/.vim-undo-dir")
+    call mkdir("/tmp/.vim-undo-dir", "", 0700)
+endif
+set undodir=/tmp/.vim-undo-dir
+set undofile
+
 "latex section
 "let g:UltiSnipsExpandTrigger = '<tab>'
 "let g:UltiSnipsJumpForwardTrigger = '<tab>'
