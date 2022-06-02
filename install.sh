@@ -9,10 +9,10 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
-vim +PluginClean +PluginInstall +CocInstall coc-json +qall
-if [ ! -e ~/.vim/UltiSnips/ ]
-then
-mkdir ~/.vim/UltiSnips
-fi
-
-cp tex.snippets ~/.vim/UltiSnips/tex.snippets
+vim +PluginClean +PluginInstall +CocInstall coc-json +CocInstall @yaegassy/coc-pylsp +qall
+#if [ ! -e ~/.vim/UltiSnips/ ]
+#then
+#mkdir ~/.vim/UltiSnips
+#fi
+#
+#cp tex.snippets ~/.vim/UltiSnips/tex.snippets
