@@ -285,6 +285,7 @@ let g:ale_linters = {
 let g:ale_set_highlights = 0
 
 map <F9> :ALEFix <CR>
+map <leader>f :ALEFix <CR>
 map <F10> :ALELint <CR>
 
 "coc
