@@ -285,6 +285,7 @@ let g:ale_linters = {
 let g:ale_set_highlights = 0
 
 map <F9> :ALEFix <CR>
+map <leader>f :ALEFix <CR>
 map <F10> :ALELint <CR>
 
 "coc
@@ -312,6 +313,13 @@ autocmd FileType fortran map <buffer> <F6> :w<CR>:vert term ++shell ifort -O3 -q
 autocmd FileType shell map <buffer> <F5> :w<CR>:vert term ++shell bash % <CR>
 autocmd FileType matlab map <buffer> <F5> :w<CR>:vert term ++shell matlab -batch % <CR>
 autocmd FileType latex map <buffer> <F5> :w<CR>:vert term latex "%"<CR>
+
+"Use persistent history.
+if !isdirectory("/tmp/.vim-undo-dir")
+    call mkdir("/tmp/.vim-undo-dir", "", 0700)
+endif
+set undodir=/tmp/.vim-undo-dir
+set undofile
 
 "latex section
 "let g:UltiSnipsExpandTrigger = '<tab>'
