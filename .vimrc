@@ -306,15 +306,27 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+
+
 autocmd BufRead,BufNewFile molcas.input set filetype=molcas
 autocmd BufRead,BufNewFile molpro.inp set filetype=molpro
 autocmd BufRead,BufNewFile bagel.json set filetype=bagel
 
-autocmd FileType molcas map <buffer> <F5> :w<CR>:vert term ++shell nohup pymolcas -f -b 1 "%" & ; tf %<.log <CR>
+autocmd FileType molcas map <buffer> <F5> :w<CR>:vert term ++shell nohup pymolcas -f -b 1 "%" & ; tail -F -n1000 %<.log <CR>
+autocmd FileType molpro map <buffer> <F5> :w<CR>:vert term ++shell nohup molpro -W `pwd` -I `pwd` -d `pwd`  "%" & ; tail -F -n1000 %<.out <CR>
+autocmd FileType bagel map <buffer> <F5> :w<CR>:vert term ++shell nohup bagel "%" > out.out & ; tail -F -n1000 out.out <CR>
 autocmd FileType python map <buffer> <F5> :w<CR>:vert term python3 "%"<CR>
-autocmd FileType python map <buffer> <F6> :w<CR>:vert term ++shell if [ -f *.args ] ; then cat *.args | xargs python3 "%"; else python3 "%" ; fi <CR>
 autocmd FileType julia map <buffer> <F5> :w<CR>:vert term julia "%"<CR>
-autocmd FileType julia map <buffer> <F6> :w<CR>:vert term ++shell if [ -f *.args ] ; then cat *.args | xargs julia "%"; else julia "%" ; fi <CR>
 autocmd FileType fortran map <buffer> <F5> :w<CR>:vert term ++shell gfortran -O3 -lblas -llapack % -o %<.o && ./%<.o <CR>
 autocmd FileType fortran map <buffer> <F6> :w<CR>:vert term ++shell ifort -O3 -qmkl % -o %<.o && ./%<.o <CR>
 autocmd FileType shell map <buffer> <F5> :w<CR>:vert term ++shell bash % <CR>

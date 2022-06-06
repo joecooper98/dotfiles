@@ -53,6 +53,7 @@ else
 fi
 
 echo 'Installing plugins in vim...'
+cp coc-settings.json ~/.vim/
 vim +PluginClean +PluginInstall +CocInstall coc-json +CocInstall @yaegassy/coc-pylsp +qall
 
 echo 'Done!'
