@@ -322,6 +322,11 @@ autocmd BufRead,BufNewFile molcas.input set filetype=molcas
 autocmd BufRead,BufNewFile molpro.inp set filetype=molpro
 autocmd BufRead,BufNewFile bagel.json set filetype=bagel
 
+autocmd BufRead,BufNewFile *.out,*.log :setlocal nolist sw=2 ts=2 
+
+let g:indentLine_setColors = 0
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+
 autocmd FileType molcas map <buffer> <F5> :w<CR>:vert term ++shell nohup pymolcas -f -b 1 "%" & ; tail -F -n1000 %<.log <CR>
 autocmd FileType molpro map <buffer> <F5> :w<CR>:vert term ++shell nohup molpro -W `pwd` -I `pwd` -d `pwd`  "%" & ; tail -F -n1000 %<.out <CR>
 autocmd FileType bagel map <buffer> <F5> :w<CR>:vert term ++shell nohup bagel "%" > out.out & ; tail -F -n1000 out.out <CR>
@@ -339,6 +344,12 @@ if !isdirectory("/tmp/.vim-undo-dir")
 endif
 set undodir=/tmp/.vim-undo-dir
 set undofile
+
+"make vim save and load the folding of the document each time it loads"
+"also places the cursor in the last place that it was left."
+au BufWinLeave * mkview
+au BufWinEnter * silent loadview
+
 
 "latex section
 "let g:UltiSnipsExpandTrigger = '<tab>'

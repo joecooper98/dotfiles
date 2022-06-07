@@ -4,9 +4,6 @@
     "command": "fortls",
     "filetypes": ["fortran"],
     "rootPatterns": [".fortls", ".git/"]
-  },
-  {
-    "diagnostic.displayByAle" : true
   }
   }
 }
