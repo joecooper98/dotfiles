@@ -40,6 +40,10 @@ Plugin 'Yggdroot/indentLine'
 
 Plugin 'neoclide/coc.nvim'
 
+Plugin 'honza/vim-snippets'
+
+" Plugin 'neoclide/coc-snippets'
+
 Plugin 'JuliaEditorSupport/julia-vim'
 
 Plugin 'arcticicestudio/nord-vim'
@@ -54,7 +58,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 
 Plugin 'lervag/vimtex'
 
-"Plugin 'sirver/ultisnips'
+" Plugin 'sirver/ultisnips'
 "
 "Plugin 'KeitaNakamura/tex-conceal.vim'
 
@@ -308,7 +312,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+inoremap <silent><expr> <C-cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 
@@ -316,13 +320,33 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
+" Use <C-l> for trigger snippet expand.
+imap <C-f> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
+
+" let g:coc_snippet_next = '<s-tab>'
+
 
 
 autocmd BufRead,BufNewFile molcas.input set filetype=molcas
 autocmd BufRead,BufNewFile molpro.inp set filetype=molpro
 autocmd BufRead,BufNewFile bagel.json set filetype=bagel
 
-autocmd BufRead,BufNewFile *.out,*.log :setlocal nolist sw=2 ts=2 
+" autocmd BufRead,BufNewFile *.out,*.log :setlocal nolist sw=2 ts=2
 
 let g:indentLine_setColors = 0
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
@@ -351,7 +375,7 @@ au BufWinLeave * mkview
 au BufWinEnter * silent loadview
 
 
-"latex section
+" latex section
 "let g:UltiSnipsExpandTrigger = '<tab>'
 "let g:UltiSnipsJumpForwardTrigger = '<tab>'
 "let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
