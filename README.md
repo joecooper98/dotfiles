@@ -1,5 +1,4 @@
-# vimrc
-
+# dotfiles
 
 git clone this repo, and then run
 
@@ -9,14 +8,14 @@ git clone this repo, and then run
 
 Dependencies are 
 
-Coc
-- Node 12.0+
-- NPM 
-Python LSP
-- python-lsp-server `pip install python-lsp-server`
-Fortran LSP
-- fortls `pip install fortls`
-- 
+- Coc
+  - Node 12.0+
+  - NPM 
+- Python LSP
+  - python-lsp-server `pip install python-lsp-server`
+- Fortran LSP
+  - fortls `pip install fortls`
+
 
 Other programs to install on new computers
 
