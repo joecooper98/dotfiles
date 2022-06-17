@@ -8,6 +8,8 @@ git clone this repo, and then run
 
 Dependencies are 
 
+- ZSH
+  - Oh my zsh `https://github.com/ohmyzsh/ohmyzsh`
 - Coc
   - Node 12.0+
   - NPM 
