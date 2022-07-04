@@ -8,15 +8,15 @@ cp -f .zshrc ~/.zshrc
 
 cwd=`pwd`
 
-if [ -e ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel ]
+if [ -e ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k ]
 then
   echo 'powerlevel already exists already exists, attempting to update...'
-  cd ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel
+  cd ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
   git pull
   cd $cwd
 else
   echo "fzf-zsh-plugin doesn't exist, attempting to install via git"
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 fi
 
 if [ -e ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-zsh-plugin ]
@@ -68,7 +68,7 @@ cp coc-settings.json ~/.vim/
 vim +PluginClean +PluginInstall +CocInstall coc-json +CocInstall @yaegassy/coc-pylsp +qall
 
 echo 'Copying powerlevel10k config script to home directory'
-cp /.p10k.zsh ~/
+cp .p10k.zsh ~/
 
 echo 'Re-sourcing .zshrc'
 
