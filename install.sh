@@ -1,5 +1,12 @@
 #!/bin/bash
 
+echo 'Ensuring zsh'
+#echo $ZSH_VERSION
+#if [[ $ZSH_VERSION -eq '' ]]
+#then
+#  chsh -s $(which zsh)
+#fi
+
 echo 'Copying files to home directory'
 cp -rf .vim/ ~/.vim
 cp -f .vimrc ~/.vimrc
@@ -70,11 +77,8 @@ vim +PluginClean +PluginInstall +CocInstall coc-json +CocInstall @yaegassy/coc-p
 echo 'Copying powerlevel10k config script to home directory'
 cp .p10k.zsh ~/
 
-echo 'Re-sourcing .zshrc'
 
-source ~/.zshrc
-
-echo 'Done!'
+echo 'Done! Just need to source now!'
 #if [ ! -e ~/.vim/UltiSnips/ ]
 #then
 #mkdir ~/.vim/UltiSnips
