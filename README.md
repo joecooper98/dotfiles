@@ -1,23 +1,23 @@
-# vimrc
-
+# dotfiles
 
 git clone this repo, and then run
 
-cp -rf vimrc/.vim ~/.vim
+```
+./install.sh
+```
 
-cp -rf vimrc/.vimrc ~/.vimrc
+Dependencies are 
 
-cp -rf Vundle.vim ~/.vimrc/bundle/
+- ZSH
+  - Oh my zsh `https://github.com/ohmyzsh/ohmyzsh`
+- Coc
+  - Node 12.0+
+  - NPM 
+- Python LSP
+  - python-lsp-server `pip install python-lsp-server`
+- Fortran LSP
+  - fortls `pip install fortls`
 
-After that, open up vim, and run 
-
-:PluginInstall
-
-Then you have to install youcompleteme by 
-
-~/.vim/bundle/youcompleteme/install.py
-
-It should then work!
 
 Other programs to install on new computers
 
