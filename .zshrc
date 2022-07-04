@@ -140,14 +140,17 @@ alias sourceintel='source /home/joe/intel/oneapi/setvars.sh intel64'
 #suffix aliases
 
 alias -s {xyz,molden}=jmol
-alias -s {f,f90,py,jl,inp,input,json}=vim
+# alias -s {f,f90,py,jl,inp,input,json}=vim
 
 #autoload -Uz compinit
 #compaudit | xargs chown -R "$(whoami)"
 # Completion for kitty
 #kitty + complete setup zsh | source /dev/stdin
 
-source ${ZSH_CUSTOM}/themes/minimal/minimal.zsh  
+#source ${ZSH_CUSTOM}/themes/minimal/minimal.zsh  
+export ZSH_THEME="powerlevel10k/powerlevel10k"
+
+bindkey -v
 
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
