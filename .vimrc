@@ -340,9 +340,69 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 
 " let g:coc_snippet_next = '<s-tab>'
 
+function! MolcasHelp()
+        "allow letters, numbers, &, -, _
+        let l:oldiskeyword=&l:iskeyword
+        setlocal iskeyword=@,48-57,38,45,95
+        "set a mark to come back
+        normal! ma
+        "get the first word in the line
+        normal! ^viwy`a
+        let l:keyword = @"
+        "no & anymore
+        setlocal iskeyword-=38
+        "if line starts with > this is emil keyword
+        if l:keyword[0] == ">"
+                normal! ^wviwy`a
+                let l:keyword = @"
+                let l:args = "emil " . l:keyword
+        "if line starts with & this is a module name
+        elseif l:keyword[0] == "&"
+                normal! ^wviwy`a
+                let l:keyword = @"
+                let l:args = l:keyword
+        "if line starts with * this is a comment, try to be smart
+        elseif l:keyword[0] == "*"
+                normal! bhyl`a
+                let l:keyword = @"
+                if l:keyword[0] == "&"
+                        normal! viwy`a
+                        let l:keyword = @"
+                        let l:args = l:keyword
+                else
+                        normal! viwy`a
+                        let l:keyword = @"
+                        execute "normal! ?&\<CR>lyw`a"
+                        let l:args = @" . " " . l:keyword[:3]
+                endif
+        "otherwise this is a keyword, search the module name backwards
+        else
+                execute "normal! ?\\(^\\s*\\)\\@<=&\<CR>lyw`a"
+                let l:args = @" . " " . l:keyword[:3]
+        endif
+        "restore the original value and show help
+        let &l:iskeyword=l:oldiskeyword
+        if match(l:keyword,'^[a-z,A-Z,0-9,_]')+1
+                silent execute "split | enew | setlocal buftype=nowrite | r !pymolcas help_doc " . l:args
+                normal! ggdd
+        endif
+endfunction
+
+augroup molcas_setup
+        autocmd!
+        " syntax coloring
+        autocmd BufNewFile,BufRead *.input setlocal syntax=emil
+        autocmd BufNewFile,BufRead *.log setlocal syntax=molcasoutput
+        " molcas help
+        autocmd BufNewFile,BufRead *.input noremap <buffer> K :call MolcasHelp()<CR>
+augroup END
 
 
-autocmd BufRead,BufNewFile molcas.input set filetype=molcas
+
+
+
+
+" autocmd BufRead,BufNewFile molcas.input set filetype=molcas
 autocmd BufRead,BufNewFile molpro.inp set filetype=molpro
 autocmd BufRead,BufNewFile bagel.json set filetype=bagel
 
@@ -351,7 +411,7 @@ autocmd BufRead,BufNewFile bagel.json set filetype=bagel
 let g:indentLine_setColors = 0
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
-autocmd FileType molcas map <buffer> <F5> :w<CR>:vert term ++shell nohup pymolcas -f -b 1 "%" & ; tail -F -n1000 %<.log <CR>
+autocmd FileType emil map <buffer> <F5> :w<CR>:vert term ++shell nohup pymolcas -f -b 1 "%" & ; tail -F -n1000 %<.log <CR>
 autocmd FileType molpro map <buffer> <F5> :w<CR>:vert term ++shell nohup molpro -W `pwd` -I `pwd` -d `pwd`  "%" & ; tail -F -n1000 %<.out <CR>
 autocmd FileType bagel map <buffer> <F5> :w<CR>:vert term ++shell nohup bagel "%" > out.out & ; tail -F -n1000 out.out <CR>
 autocmd FileType python map <buffer> <F5> :w<CR>:vert term python3 "%"<CR>
