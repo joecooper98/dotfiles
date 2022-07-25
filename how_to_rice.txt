@@ -1,0 +1,6 @@
+change all the fonts
+
+waybar, mako, sway
+
+download fira code
+background
