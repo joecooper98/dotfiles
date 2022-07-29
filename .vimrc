@@ -248,6 +248,8 @@ map <leader>c <plug>NERDCommenterInvert
 
 nmap <F8> :TagbarToggle<CR>
 
+let g:tagbar_width = max([25, winwidth(0) / 5])
+
 " undotree
 
 nnoremap <F7> :UndotreeToggle<CR>
@@ -303,6 +305,20 @@ map <F10> :ALELint <CR>
 "minimap
 
 map <F11> :MinimapToggle <CR>
+
+
+"vim spector
+
+" map <leader>vc <Plug>VimspectorContinue
+" map <leader>vcc <Plug>VimspectorRunToCuros
+" map <leader>vs <Plug>VimspectorStop
+" map <leader>vr <Plug>VimspectorRestart
+" map <leader>vp <Plug>VimspectorPause
+" map <leader>vb <Plug>VimspectorToggleBreakpoint
+" map <leader>vcb <Plug>VimspectorToggleConditionalBreakpoint
+nmap <leader>be <Plug>VimspectorBalloonEval
+" xmap <leader>be <Plug>VimspectorBalloonEval
+" map <leader>vfb <Plug>VimspectorContinue<CR>
 
 
 "coc
