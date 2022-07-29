@@ -156,6 +156,7 @@ export GOPATH=~/GO
 PATH+=$GOPATH:$PATH
 
 export PATH=~/bin/:$PATH
+export PATH=/home/joe/.local/bin:$PATH
 
 if [[ -e ~/.zsh_alias.sh ]]
 then

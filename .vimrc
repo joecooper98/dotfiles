@@ -42,7 +42,7 @@ Plugin 'neoclide/coc.nvim'
 
 Plugin 'honza/vim-snippets'
 
-" Plugin 'neoclide/coc-snippets'
+Plugin 'neoclide/coc-snippets'
 
 Plugin 'JuliaEditorSupport/julia-vim'
 
@@ -57,6 +57,14 @@ Plugin 'mbbill/undotree'
 Plugin 'ctrlpvim/ctrlp.vim'
 
 Plugin 'lervag/vimtex'
+
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+Plugin 'wfxr/minimap.vim'
+
+Plugin 'puremourning/vimspector'
+"
+" Plugin 'ryanoasis/vim-devicons'
 
 " Plugin 'sirver/ultisnips'
 "
@@ -291,6 +299,11 @@ let g:ale_set_highlights = 0
 map <F9> :ALEFix <CR>
 map <leader>f :ALEFix <CR>
 map <F10> :ALELint <CR>
+
+"minimap
+
+map <F11> :MinimapToggle <CR>
+
 
 "coc
 
